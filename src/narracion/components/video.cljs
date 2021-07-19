@@ -16,6 +16,11 @@
   [^PlayerRef player-ref]
   (apply-player player-ref #(if (.paused %) (.play %) (.pause %))))
 
+(defn set-current-time
+  "Set the current position in the video, in seconds."
+  [^PlayerRef player-ref time-seconds]
+  (apply-player player-ref #(.currentTime % time-seconds)))
+
 ;; ## Component
 
 (defn- attach-handlers!
@@ -36,7 +41,7 @@
 
 (defn- handle-component-did-mount
   "DID MOUNT: Initialise videojs, propagate reference."
-  [{:keys [ref sources] :as props} player-atom]
+  [{:keys [on-ready sources] :as props} player-atom]
   (fn [this]
     (let [node   (rdom/dom-node this)
           player (doto (js/videojs node #js {:controls true
@@ -46,8 +51,8 @@
                                              :sources  (clj->js sources)})
                    (attach-handlers! props))]
       (reset! player-atom player)
-      (when ref
-        (.ready player #(ref (PlayerRef. player)))))))
+      (when on-ready
+        (.ready player #(on-ready (PlayerRef. player)))))))
 
 (defn- handle-component-will-unmount
   "WILL UNMOUNT: Dispose of the player."
