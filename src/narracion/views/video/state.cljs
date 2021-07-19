@@ -32,23 +32,18 @@
     (when player
       {::toggle-play {:player player}})))
 
-(re-frame/reg-event-fx
-  ::forward
-  interceptors
-  (fn [{{:keys [current-time player]} :db} _]
-    (when player
-      {::set-video-time
-       {:player player
-        :time-seconds (+ (or current-time 0) 0.5)}})))
-
-(re-frame/reg-event-fx
-  ::backward
-  interceptors
-  (fn [{{:keys [current-time player]} :db} _]
-    (when player
-      {::set-video-time
-       {:player player
-        :time-seconds (- (or current-time 0) 0.5)}})))
+(doseq [[k base-delta] {::forward 2, ::backward -2}]
+  (re-frame/reg-event-fx
+    k
+    interceptors
+    (fn [{{:keys [current-time player]} :db} _]
+      (when player
+        (let [delta (if (video/paused? player)
+                      (/ base-delta 3)
+                      base-delta)]
+          {::set-video-time
+           {:player player
+            :time-seconds (+ (or current-time 0) delta)}})))))
 
 ;; ## Effects
 

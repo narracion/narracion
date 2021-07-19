@@ -16,6 +16,10 @@
   [^PlayerRef player-ref]
   (apply-player player-ref #(if (.paused %) (.play %) (.pause %))))
 
+(defn paused?
+  [^PlayerRef player-ref]
+  (apply-player player-ref #(.paused %)))
+
 (defn set-current-time
   "Set the current position in the video, in seconds."
   [^PlayerRef player-ref time-seconds]
