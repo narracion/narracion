@@ -12,6 +12,8 @@
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [org.clojure/clojurescript "1.10.773"]
                  [org.clojure/tools.reader "1.3.3"]
+
+                 ;; React
                  [reagent "1.0.0" ]
                  [kee-frame "1.1.2"]
                  [re-frame "1.2.0"]
@@ -30,9 +32,9 @@
                                   [com.google.code.findbugs/jsr305 "3.0.2"]
                                   [args4j "2.33"]
                                   [ring "1.8.1"]
+                                  [ring/ring-codec "1.1.2"]
                                   [commons-io "2.6"]
                                   [commons-fileupload "1.4"]
-                                  [ring/ring-codec "1.1.2"]
                                   [ns-tracker "0.4.0"]]
 
                    :resource-paths ["target"]

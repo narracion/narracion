@@ -1,2 +1,23 @@
-/* some style */
+body {
+    font-family: sans-serif;
+}
 
+textarea {
+    flex-grow: 1;
+    height: 10em;
+}
+
+div.text-element {
+    display: flex;
+    max-width: 640px;
+}
+
+div.timestamp {
+    flex-grow: 1;
+    font-weight: bold;
+}
+
+div.text {
+    display: flex;
+    flex-grow: 4;
+}

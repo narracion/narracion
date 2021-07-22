@@ -20,4 +20,4 @@
   (k/start!
     {:routes         routes
      :root-component [router]
-     :initial-db     {}}))
+     :initial-db     {:mode :normal}}))
